@@ -12,6 +12,10 @@ import { FullcalendarComponent } from './fullcalendar/fullcalendar.component';
 import { BuchungenDialogComponent } from './buchungen-dialog/buchungen-dialog.component';
 import {MatDialogModule} from "@angular/material/dialog";
 import {CdkDrag} from "@angular/cdk/drag-drop";
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from "@angular/material/form-field";
+import {FormsModule} from "@angular/forms";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -28,7 +32,11 @@ import {CdkDrag} from "@angular/cdk/drag-drop";
     HttpClientModule,
     FullCalendarModule,
     MatDialogModule,
-    CdkDrag
+    CdkDrag,
+    MatFormFieldModule,
+    MatInputModule,
+    FormsModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
