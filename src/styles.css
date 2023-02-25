@@ -1,5 +1,6 @@
 /* Application-wide Styles */
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import "~material-design-icons-iconfont/dist/material-design-icons";
 
 h1 {
   color: #3573b2;
@@ -40,6 +41,7 @@ button:hover {
   color: #aaa;
   cursor: auto;
 }*/
+
 
 /* everywhere else */
 * {

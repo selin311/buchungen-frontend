@@ -1,2 +1,2 @@
-<button (click)="buttonNameToggle = !buttonNameToggle; showWeekends()">{{buttonName}}</button>
-<full-calendar [options]="calendarOptions" id='calendar'></full-calendar>
+<button (click)="buttonNameChange = !buttonNameChange; showWeekends()">{{buttonName}}</button>
+<full-calendar [options]="calendarOptions" [events]="initEvents" id='calendar'></full-calendar>

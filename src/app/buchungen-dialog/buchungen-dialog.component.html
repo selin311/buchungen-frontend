@@ -1,12 +1,54 @@
-<h1 mat-dialog-title>Hi</h1>
-<div mat-dialog-content>
-  <p>Choose Title</p>
-  <mat-form-field appearance="fill">
-    <mat-label>Title</mat-label>
-    <input matInput [(ngModel)]="data.title">
-  </mat-form-field>
-</div>
-<mat-dialog-actions align="end">
-  <button mat-button mat-dialog-close>Cancel</button>
-  <button mat-button [mat-dialog-close]="data.title" cdkFocusInitial>Ok</button>
-</mat-dialog-actions>
+<form [formGroup]="buchungForm">
+  <h1 mat-dialog-title>Du hast folgendes Datum ausgewählt: <br/> {{data.date}}</h1>
+  <div mat-dialog-content>
+    <div class="block">
+      <div class="block" [ngStyle]="{visibility: data.allDay ? 'hidden' : 'visible'}">
+        <div class="elem" id="startzeitInput">
+          <p>Startzeit</p>
+          <input type="time" min="07:00" max="19:45" step="900"
+                 formControlName="starttime">
+        </div>
+        <div class="elem" id="endzeitInput" style="padding-right: 3em; padding-left: 3em">
+          <p>Endzeit</p>
+          <input type="time" min="07:15" max="20:00" step="900"
+                 formControlName="endtime">
+        </div>
+      </div>
+      <div class="elem">
+        <p>Ganztägig</p>
+        <mat-slide-toggle formControlName="allDay" (change)="allDayChange($event)"></mat-slide-toggle>
+      </div>
+    </div>
+    <div class="block">
+      <div class="elem">
+        <p>Name</p>
+        <mat-form-field [style.min-width.px]=200>
+          <input matInput formControlName="username">
+        </mat-form-field>
+      </div>
+      <div class="elem">
+        <p>Reservierungsgrund</p>
+        <mat-form-field [style.min-width.px]=300>
+          <input matInput formControlName="reason">
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+  <mat-dialog-actions align="end">
+    <div *ngIf="!isUpdate; else update">
+      <button mat-button mat-dialog-close>Abbrechen</button>
+      <button mat-button [disabled]="!buchungForm.valid" matTooltip="Nur moeglich wenn Form Valid"
+              (click)="saveBuchung()">Speichern
+      </button>
+    </div>
+    <ng-template #update>
+      <button (click)="deleteBuchung()">
+        <mat-icon>delete</mat-icon>
+      </button>
+      <button mat-button mat-dialog-close (click)="onCancel()">Abbrechen</button>
+      <button mat-button [disabled]="!buchungForm.valid" matTooltip="Nur moeglich wenn Form Valid"
+              (click)="updateBuchung()">Update
+      </button>
+    </ng-template>
+  </mat-dialog-actions>
+</form>

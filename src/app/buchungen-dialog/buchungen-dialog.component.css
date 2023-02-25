@@ -1,0 +1,36 @@
+h1 {
+  text-align: center;
+  font-size: x-large;
+  padding-top: 1.5em;
+}
+
+div {
+  text-align: center;
+  align-self: center;
+}
+
+div .block {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+
+  margin-left: 2em;
+  margin-right: 2em;
+}
+
+div .elem {
+  padding: 1.5em;
+}
+
+div .elem.hidden {
+  visibility: hidden;
+}
+
+button {
+  height: 45px;
+  line-height: 0px;
+  padding: 10px;
+  padding-left: 15px;
+  padding-right: 15px;
+}

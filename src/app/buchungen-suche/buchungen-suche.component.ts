@@ -6,16 +6,15 @@ import {
   debounceTime, distinctUntilChanged, switchMap
 } from 'rxjs/operators';
 
-import { Backend } from '../backend';
-import { BackendService } from '../backend-service';
+import { BackendService } from '../backend-service/backend-service';
 
 @Component({
   selector: 'app-buchungen-suche',
   templateUrl: './buchungen-suche.component.html',
   styleUrls: ['./buchungen-suche.component.css']
 })
-export class BuchungenSucheComponent implements OnInit {
-  backend$!: Observable<Backend[]>;
+export class BuchungenSucheComponent {
+/*  backend$!: Observable<Backend[]>;
   private searchTerm = new Subject<string>();
 
   constructor(private backendService: BackendService) {}
@@ -36,7 +35,7 @@ export class BuchungenSucheComponent implements OnInit {
       // switch to new search observable each time the term changes
       switchMap((term: string) => this.backendService.searchBackend(term)),
     );
-  }
+  }*/
 
 
 }
