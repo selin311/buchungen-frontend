@@ -7,11 +7,13 @@ html, body {
 
 #calendar {
   max-width: 90%;
-  margin: 10px auto;
+  margin: 8px auto;
   margin-top: 4rem;
   --fc-border-color: black;
   --fc-daygrid-event-dot-width: 5px;
 }
+
+
 
 
 

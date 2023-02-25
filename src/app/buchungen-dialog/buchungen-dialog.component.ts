@@ -3,8 +3,9 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {DialogData} from "../fullcalendar/fullcalendar.component";
 import {MatSlideToggleChange} from "@angular/material/slide-toggle";
 import {BackendService} from "../backend-service/backend-service";
-import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {FormControl, FormGroup, Validator, Validators} from "@angular/forms";
 import {Buchung} from "../model/model";
+import {isStarttimeBeforeEndtimeValidator} from "../validations/validators";
 
 @Component({
   selector: 'app-buchungen-dialog',
@@ -19,11 +20,13 @@ export class BuchungenDialogComponent implements OnInit {
   formerEndtime: string = '';
   buchungForm = new FormGroup({
     date: new FormControl(this.data.date),
-    username: new FormControl(this.data.username,Validators.required),
-    starttime: new FormControl(this.data.starttime),
-    endtime: new FormControl(this.data.endtime),
+    username: new FormControl(this.data.username, Validators.required),
+    starttime: new FormControl(this.data.starttime, Validators.required),
+    endtime: new FormControl(this.data.endtime, Validators.required),
     reason: new FormControl(this.data.reason),
     allDay: new FormControl(this.data.allDay)
+  }, {
+    validators: isStarttimeBeforeEndtimeValidator('starttime','endtime')
   });
 
   constructor(

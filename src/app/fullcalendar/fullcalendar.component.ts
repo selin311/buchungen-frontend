@@ -41,14 +41,22 @@ export class FullcalendarComponent implements OnInit {
 
   calendarOptions: CalendarOptions = {
     initialView: 'dayGridMonth',
+    customButtons: {
+      showWeekends: {
+        text: 'Wochenenden',
+        click: () => this.showWeekends()
+      }
+    },
     plugins: [interactionPlugin, dayGridPlugin, timeGridPlugin, listPlugin],
     headerToolbar: {
-      left: 'prevYear,prev,next,nextYear today',
+      left: 'prevYear,prev,next,nextYear today showWeekends',
       center: 'title',
       right: 'dayGridMonth timeGridWeek timeGridDay listMonth'
     },
     weekends: false,
     weekNumbers: true,
+    fixedWeekCount: false,
+    showNonCurrentDates: false,
     editable: false,
     selectMirror: true,
     dayMaxEvents: true,
@@ -57,12 +65,7 @@ export class FullcalendarComponent implements OnInit {
     initialEvents: [],
     eventDisplay: "block",
     displayEventTime: false,
-    views: {
-      dayGrid: {
-        navLinks: true,
-        navLinkDayClick: 'timeGridweek',
-      },
-    },
+    navLinks: true,
     dateClick: this.handleDateSelect.bind(this),
     eventClick: this.handleEventClick.bind(this)
   };
@@ -75,7 +78,6 @@ export class FullcalendarComponent implements OnInit {
     this.backendService.getAllBuchungen().subscribe((response: Buchung[]) => {
       const initEvents: EventInput[] = [];
       for (let i=0; i<response.length; i++) {
-        console.log('response.allDay: ' + response[i].allDay);
           initEvents.push(
             {
               id: response[i].id,
@@ -84,7 +86,7 @@ export class FullcalendarComponent implements OnInit {
               end: response[i].date + 'T' + response[i].endtime + ':00',
               description: response[i].reason,
               allDay: response[i].allDay,
-              color: response[i].allDay === true ? "#94d0b7" : '#3775c6'
+              color: response[i].allDay === true ? "#93ceb3" : '#3775c6'
             }
           )
         }
@@ -163,7 +165,30 @@ export class FullcalendarComponent implements OnInit {
 
   showWeekends() {
     this.calendarOptions.weekends = !this.calendarOptions.weekends;
-    this.buttonName = this.buttonNameChange ? 'zeige Wochenenden an' : 'blende Wochenenden aus';
+    // this.buttonName = this.buttonNameChange ? 'zeige Wochenenden an' : 'blende Wochenenden aus';
+/*    var customButtonsOption = this.calendarOptions.customButtons;
+    if (this.calendarOptions.weekends = true) {
+      this.calendarOptions.weekends = false,
+      this.calendarOptions.customButtons = {
+        ...customButtonsOption, showWeekends: {
+          ...customButtonsOption!.showWeekends,
+          text: 'edit'
+        }
+      };
+    } else {
+      this.calendarOptions.weekends = true,
+      this.calendarOptions.customButtons = {
+        ...customButtonsOption, showWeekends: {
+          ...customButtonsOption!.showWeekends,
+          text: 'stop'
+        }
+      }
+    }*/
+    /*this.calendarOptions.customButtons = {
+      showWeekends: {
+        text: 'changed'
+      }
+    }*/
   }
 
 }
