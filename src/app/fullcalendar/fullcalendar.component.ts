@@ -151,7 +151,6 @@ export class FullcalendarComponent implements OnInit {
         if (result.delete) {
           // delete event
           event.remove();
-          // GGG
         } else {
           // update event
           event.setProp('title', result.allDay ? result.username : result.starttime + "-" + result.endtime + " " + result.username);
