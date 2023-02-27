@@ -28,5 +28,8 @@ export class BackendService {
     return this.http.get<Buchung[]>(this.backendUrl);
   }
 
+  public getAllUsernames(): Observable<String[]> {
+    return this.http.get<String[]>(this.backendUrl + '/allUsernames');
+  }
 
 }

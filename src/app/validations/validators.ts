@@ -1,12 +1,19 @@
-import {ValidatorFn} from "@angular/forms";
+import {FormControl, FormGroupDirective, NgForm, ValidatorFn} from "@angular/forms";
+import {ErrorStateMatcher} from "@angular/material/core";
 
-export function isStarttimeBeforeEndtimeValidator(field1: string, field2: string): ValidatorFn {
+export class UntouchedErrorStateMatcher implements ErrorStateMatcher {
+  public isErrorState(control: FormControl, form: FormGroupDirective | NgForm): boolean {
+    return control && control.invalid;
+  }
+}
+
+export function buchungsFormValidator(starttime: string, endtime: string): ValidatorFn {
   return function (buchungForm) {
-    let field1Value = buchungForm.get(field1)!.value;
-    let field2Value = buchungForm.get(field2)!.value;
+    let starttimeValue = buchungForm.get(starttime)!.value;
+    let endtimeValue = buchungForm.get(endtime)!.value;
 
-    if (field1Value !== field2Value) {
-      return { 'starttimeIsBeforeEndtime': 'Starttime is not before endtime.' }
+    if (parseInt(starttimeValue) >= parseInt(endtimeValue)) {
+      return { 'starttimeIsBeforeEndtime': true }
     }
     return null;
   }

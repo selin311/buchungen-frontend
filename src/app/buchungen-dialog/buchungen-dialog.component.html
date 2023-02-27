@@ -1,4 +1,4 @@
-<form [formGroup]="buchungForm">
+<form [formGroup]="buchungForm" >
   <h1 mat-dialog-title>Du hast folgendes Datum ausgewählt: <br/> {{data.date}}</h1>
   <div mat-dialog-content>
     <div class="block">
@@ -19,11 +19,19 @@
         <mat-slide-toggle formControlName="allDay" (change)="allDayChange($event)"></mat-slide-toggle>
       </div>
     </div>
+    <div *ngIf="buchungForm.errors?.['starttimeIsBeforeEndtime']" class="block, error">
+      Die Startzeit darf nicht vor der Endzeit sein.
+    </div>
     <div class="block">
       <div class="elem">
         <p>Name</p>
         <mat-form-field [style.min-width.px]=200>
-          <input matInput formControlName="username">
+          <input matInput formControlName="username" [matAutocomplete]="auto">
+          <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+            <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+              {{option}}
+            </mat-option>
+          </mat-autocomplete>
         </mat-form-field>
       </div>
       <div class="elem">
@@ -33,11 +41,15 @@
         </mat-form-field>
       </div>
     </div>
+    <div *ngIf="showError" class="block, error">
+      Zum Speichern einen Namen eingeben.
+    </div>
   </div>
+
   <mat-dialog-actions align="end">
     <div *ngIf="!isUpdate; else update">
       <button mat-button mat-dialog-close>Abbrechen</button>
-      <button mat-button [disabled]="!buchungForm.valid" matTooltip="Nur moeglich wenn Form Valid"
+      <button mat-button [disabled]="!buchungForm.valid"
               (click)="saveBuchung()">Speichern
       </button>
     </div>
@@ -46,7 +58,7 @@
         <mat-icon>delete</mat-icon>
       </button>
       <button mat-button mat-dialog-close (click)="onCancel()">Abbrechen</button>
-      <button mat-button [disabled]="!buchungForm.valid" matTooltip="Nur moeglich wenn Form Valid"
+      <button mat-button [disabled]="!buchungForm.valid"
               (click)="updateBuchung()">Update
       </button>
     </ng-template>

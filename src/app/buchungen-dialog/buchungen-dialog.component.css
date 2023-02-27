@@ -27,6 +27,10 @@ div .elem.hidden {
   visibility: hidden;
 }
 
+div .error {
+  color: #ee2626;
+}
+
 button {
   height: 45px;
   line-height: 0px;
