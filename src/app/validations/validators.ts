@@ -1,11 +1,4 @@
 import {FormControl, FormGroupDirective, NgForm, ValidatorFn} from "@angular/forms";
-import {ErrorStateMatcher} from "@angular/material/core";
-
-export class UntouchedErrorStateMatcher implements ErrorStateMatcher {
-  public isErrorState(control: FormControl, form: FormGroupDirective | NgForm): boolean {
-    return control && control.invalid;
-  }
-}
 
 export function buchungsFormValidator(starttime: string, endtime: string): ValidatorFn {
   return function (buchungForm) {

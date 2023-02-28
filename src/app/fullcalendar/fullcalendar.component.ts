@@ -8,7 +8,7 @@ import listPlugin from '@fullcalendar/list';
 import {BuchungenDialogComponent} from "../buchungen-dialog/buchungen-dialog.component";
 import {MatDialog, MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {BackendService} from "../backend-service/backend-service";
-import {Buchung} from "../model/model";
+import {Buchung} from "../buchungen-dialog-model/model";
 
 export interface DialogData {
   id: string;
@@ -165,30 +165,6 @@ export class FullcalendarComponent implements OnInit {
 
   showWeekends() {
     this.calendarOptions.weekends = !this.calendarOptions.weekends;
-    // this.buttonName = this.buttonNameChange ? 'zeige Wochenenden an' : 'blende Wochenenden aus';
-/*    var customButtonsOption = this.calendarOptions.customButtons;
-    if (this.calendarOptions.weekends = true) {
-      this.calendarOptions.weekends = false,
-      this.calendarOptions.customButtons = {
-        ...customButtonsOption, showWeekends: {
-          ...customButtonsOption!.showWeekends,
-          text: 'edit'
-        }
-      };
-    } else {
-      this.calendarOptions.weekends = true,
-      this.calendarOptions.customButtons = {
-        ...customButtonsOption, showWeekends: {
-          ...customButtonsOption!.showWeekends,
-          text: 'stop'
-        }
-      }
-    }*/
-    /*this.calendarOptions.customButtons = {
-      showWeekends: {
-        text: 'changed'
-      }
-    }*/
   }
 
 }

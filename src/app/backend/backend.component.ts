@@ -13,10 +13,4 @@ export class BackendComponent implements OnInit {
 
   public ngOnInit() {
   }
-
-  public test() {
-    this.backendService.test();
-    console.log('yes');
-  }
-
 }

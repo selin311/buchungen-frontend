@@ -4,7 +4,6 @@ import {DialogData} from "../fullcalendar/fullcalendar.component";
 import {MatSlideToggleChange} from "@angular/material/slide-toggle";
 import {BackendService} from "../backend-service/backend-service";
 import {FormControl, FormGroup, Validator, Validators} from "@angular/forms";
-import {Buchung} from "../model/model";
 import {buchungsFormValidator} from "../validations/validators";
 import {map, Observable, startWith} from "rxjs";
 
@@ -46,7 +45,6 @@ export class BuchungenDialogComponent implements OnInit {
 
   ngOnInit() {
     this.backendService.getAllUsernames().subscribe(result => {
-      console.log(result);
       this.options = result;
 
       this.filteredOptions = this.buchungForm.controls['username'].valueChanges.pipe(
@@ -79,10 +77,8 @@ export class BuchungenDialogComponent implements OnInit {
   }
 
   saveBuchung() {
-    console.log(this.buchungForm.controls['username'].value);
     if (this.buchungForm.controls['username'].value === '') {
       this.showError = true;
-      console.log('abcd');
     } else {
 
       const buchung = {
@@ -104,31 +100,35 @@ export class BuchungenDialogComponent implements OnInit {
   }
 
   updateBuchung() {
-    const buchung = {
-      id: this.data.id,
-      username: this.buchungForm.controls['username'].value,
-      date: this.buchungForm.controls['date'].value,
-      starttime: this.buchungForm.controls['starttime'].value,
-      endtime: this.buchungForm.controls['endtime'].value,
-      reason: this.buchungForm.controls['reason'].value,
-      allDay: this.buchungForm.controls['allDay'].value
-    }
-    this.backendService.updateBuchung(buchung).subscribe(
-      (response) => {
-        this.dialogRef.close({
-          id: this.data.id,
-          username: this.buchungForm.controls['username'].value,
-          date: this.buchungForm.controls['date'].value,
-          starttime: this.buchungForm.controls['starttime'].value,
-          endtime: this.buchungForm.controls['endtime'].value,
-          reason: this.buchungForm.controls['reason'].value,
-          allDay: this.buchungForm.controls['allDay'].value,
-          delete: false
+    if (this.buchungForm.controls['username'].value === '') {
+      this.showError = true;
+    } else {
+      const buchung = {
+        id: this.data.id,
+        username: this.buchungForm.controls['username'].value,
+        date: this.buchungForm.controls['date'].value,
+        starttime: this.buchungForm.controls['starttime'].value,
+        endtime: this.buchungForm.controls['endtime'].value,
+        reason: this.buchungForm.controls['reason'].value,
+        allDay: this.buchungForm.controls['allDay'].value
+      }
+      this.backendService.updateBuchung(buchung).subscribe(
+        (response) => {
+          this.dialogRef.close({
+            id: this.data.id,
+            username: this.buchungForm.controls['username'].value,
+            date: this.buchungForm.controls['date'].value,
+            starttime: this.buchungForm.controls['starttime'].value,
+            endtime: this.buchungForm.controls['endtime'].value,
+            reason: this.buchungForm.controls['reason'].value,
+            allDay: this.buchungForm.controls['allDay'].value,
+            delete: false
+          });
+        },
+        (error) => {
+          console.log("ERROR" + error);
         });
-      },
-      (error) => {
-        console.log(error);
-      });
+    }
   }
 
   public deleteBuchung() {
@@ -139,8 +139,8 @@ export class BuchungenDialogComponent implements OnInit {
           delete: true
         });
       },
-      () => {
-        console.log("ERROR!");
+      (error) => {
+        console.log("ERROR" + error);
       })
   }
 

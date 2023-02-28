@@ -8,11 +8,4 @@ export class Backend {
 
   constructor(private http: HttpClient) { }
 
-  public test() {
-    this.http.get('http://localhost:8080/api/buchung').subscribe(
-      data => {
-        console.log(data);
-      }
-    )
-  }
 }
