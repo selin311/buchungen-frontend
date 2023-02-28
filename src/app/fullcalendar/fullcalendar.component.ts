@@ -1,12 +1,12 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {CalendarOptions, Calendar, EventInput} from '@fullcalendar/core';
+import {Component, OnInit} from '@angular/core';
+import {CalendarOptions, EventInput} from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import deLocale from '@fullcalendar/core/locales/de';
 import interactionPlugin from '@fullcalendar/interaction';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';
 import {BuchungenDialogComponent} from "../buchungen-dialog/buchungen-dialog.component";
-import {MatDialog, MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import {MatDialog} from '@angular/material/dialog';
 import {BackendService} from "../backend-service/backend-service";
 import {Buchung} from "../buchungen-dialog-model/model";
 
@@ -153,11 +153,12 @@ export class FullcalendarComponent implements OnInit {
           event.remove();
         } else {
           // update event
-          event.setProp('title', result.allDay ? result.username : result.starttime + "-" + result.endtime + " " + result.username);
+          event.setProp('title', result.allDay === true ? result.username : result.starttime + "-" + result.endtime + " " + result.username);
           event.setExtendedProp('description', result.reason);
           event.setStart(selectInfo.event.startStr.substring(0, 10) + 'T' + result.starttime + ':00',);
           event.setEnd(selectInfo.event.startStr.substring(0, 10) + 'T' + result.endtime + ':00',);
           event.setAllDay(result.allDay);
+          event.setProp('color', result.allDay === true ? "#93ceb3" : '#3775c6')
         }
       }
     });
